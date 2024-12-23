@@ -107,14 +107,17 @@ const Hero = () => {
 							<div className="text-lg sm:text-xl mx-auto font-normal text-neutral-600 dark:text-neutral-400">
 								<h2>
 									<span className="font-bold text-zinc-900 dark:text-white">
-										IT Support Specialist:
+										Systems Administrator & Front-End
+										Developer
 									</span>{" "}
-									Expertise in Mac, Linux, and Windows
-									environments. Proficient in web design
-									across multiple programming languages.
-									Skilled in system upgrades, troubleshooting,
-									and providing comprehensive technical
-									support.
+									with expertise in networking, Linux, and
+									Windows Server. Skilled in managing IT
+									infrastructures, troubleshooting, and system
+									upgrades. Proficient in creating responsive
+									web designs using modern technologies.
+									Dedicated to improving system reliability,
+									streamlining processes, and crafting
+									user-friendly digital experiences.
 								</h2>
 							</div>
 						</div>
