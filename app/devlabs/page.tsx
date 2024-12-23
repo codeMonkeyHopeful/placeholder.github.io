@@ -10,12 +10,12 @@ const DevLabsPage = () => {
 	let allBlogs = getBlogPosts()
 
 	return (
-		<div className="px-5 sm:px-2 py-2 sm:py-5 max-w-2xl mx-auto">
+		<div className="px-5 sm:px-10 py-2 sm:py-5">
 			<h1 className="font-thunder_hc tracking-wider text-4xl bg-primary p-2 w-fit rounded-lg text-white dark:">
 				Blog<span className="text-white">.</span>
 			</h1>
 
-			<article className="flex flex-col gap-8 py-12">
+			<article className="flex flex-row gap-8 py-12">
 				{allBlogs
 					.sort((a, b) => {
 						if (

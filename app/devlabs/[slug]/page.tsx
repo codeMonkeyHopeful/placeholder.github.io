@@ -9,10 +9,18 @@ import { unstable_noStore as noStore } from "next/cache"
 
 export async function generateMetadata({
 	params,
+}: {
+	params: { slug: string }
 }): Promise<Metadata | undefined> {
-	let post = getBlogPosts().find((post) => post.slug === params.slug)
+	// Wait for params and fetch data
+	const { slug } = await params
+	const blogPosts = await getBlogPosts() // Ensure getBlogPosts is async if needed
+
+	// Find the matching post
+	const post = blogPosts.find((post) => post.slug === slug)
+
 	if (!post) {
-		return
+		return undefined // No metadata if post is not found
 	}
 
 	let {
@@ -81,9 +89,21 @@ function formatDate(date: string) {
 	}
 }
 
-export default function DevLabs({ params }) {
-	let post = getBlogPosts().find((post) => post.slug === params.slug)
+export default async function DevLabs({
+	params,
+}: {
+	params: { slug: string }
+}) {
+	// Await params if necessary
+	const { slug } = await params
 
+	// Fetch blog posts (ensure getBlogPosts is async if needed)
+	const blogPosts = await getBlogPosts()
+
+	// Find the matching post
+	const post = blogPosts.find((post) => post.slug === slug)
+
+	// If no post is found, trigger the notFound function
 	if (!post) {
 		notFound()
 	}
