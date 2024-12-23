@@ -61,7 +61,7 @@ const Hero = () => {
 							</div>
 							<div className="relative row-span-2">
 								<Image
-									src="/profile/img_0270.webp"
+									src="/profile/centralpark_2024.webp"
 									alt="Snowboard Freiburg"
 									fill
 									sizes="100vw"
@@ -75,7 +75,7 @@ const Hero = () => {
 							</div>
 							<div className="relative row-span-2">
 								<Image
-									src="/profile/img_0215.webp"
+									src="/profile/newyork_2024.webp"
 									alt="Cabanas de Tavira"
 									fill
 									sizes="100vw"
