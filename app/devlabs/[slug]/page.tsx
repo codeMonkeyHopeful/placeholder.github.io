@@ -10,7 +10,7 @@ import { unstable_noStore as noStore } from "next/cache"
 export async function generateMetadata({
 	params,
 }: {
-	params: { slug: string }
+	params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
 	// Wait for params and fetch data
 	const { slug } = await params
@@ -92,7 +92,7 @@ function formatDate(date: string) {
 export default async function DevLabs({
 	params,
 }: {
-	params: { slug: string }
+	params: Promise<{ slug: string }>
 }) {
 	// Await params if necessary
 	const { slug } = await params

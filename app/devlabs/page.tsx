@@ -15,7 +15,7 @@ const DevLabsPage = () => {
 				Blog<span className="text-white">.</span>
 			</h1>
 
-			<article className="flex flex-row gap-8 py-12">
+			<article className="flex flex-col gap-8 py-12">
 				{allBlogs
 					.sort((a, b) => {
 						if (
