@@ -3,6 +3,7 @@ import Link from "next/link"
 import clsx from "clsx"
 import { usePathname } from "next/navigation"
 import { LayoutGroup, motion } from "framer-motion"
+import { ThemeToggle } from "app/components/theme-toggle"
 
 const navItems = {
 	"/": {
@@ -23,7 +24,7 @@ const Header = () => {
 	}
 	return (
 		<header className="px-5 sm:px-10 pt-14 mb-16 tracking-tight">
-			<div className="flex items-start ">
+			<div className="flex justify-between items-center">
 				<LayoutGroup>
 					<nav className="flex items-center">
 						<div className="flex flex-row space-x-3">
@@ -62,6 +63,7 @@ const Header = () => {
 						</div>
 					</nav>
 				</LayoutGroup>
+				<ThemeToggle />
 			</div>
 		</header>
 	)

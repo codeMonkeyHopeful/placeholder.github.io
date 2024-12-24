@@ -4,6 +4,7 @@ import localFont from "next/font/local"
 import type { Metadata } from "next"
 import Header from "components/Header"
 import Footer from "components/Footer"
+import { ThemeProvider } from "./components/theme-provider"
 
 const thunder_hc = localFont({
 	src: "../public/fonts/Thunder-BoldHC.otf",
@@ -72,20 +73,18 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={clsx(
-				"text-zinc-900 bg-white dark:text-white dark:bg-[#000000]",
-				thunder_hc.variable,
-				mabry.variable
-			)}
+			className={clsx("", thunder_hc.variable, mabry.variable)}
 		>
-			<body className="antialiased">
-				<div className="w-full flex flex-col min-h-screen">
-					<Header />
-					<main className="flex-grow">{children}</main>
-					<div className="mt-auto">
-						<Footer />
+			<body className="antialiased text-zinc-900 bg-white dark:text-white dark:bg-[#000000]">
+				<ThemeProvider>
+					<div className="w-full flex flex-col min-h-screen">
+						<Header />
+						<main className="flex-grow">{children}</main>
+						<div className="mt-auto">
+							<Footer />
+						</div>
 					</div>
-				</div>
+				</ThemeProvider>
 			</body>
 		</html>
 	)
