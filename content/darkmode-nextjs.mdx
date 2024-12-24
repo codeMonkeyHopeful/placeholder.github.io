@@ -1,132 +1,165 @@
 ---
-title: "Dark Mode Tailwind and Next.js 13"
-summary: "How to Create a Dark Mode using Tailwind and Next.js 13"
-publishedAt: "2023-02-28"
+title: "Dark Mode Tailwind and Next.js 15.1"
+summary: "How to Implement Dark Mode in a Next.js 15.1 Application"
+publishedAt: "2024-12-24"
 category: "Next.js"
 ---
 
-Dark mode has become increasingly popular in recent years, and many websites now offer a dark mode option for their users. In this tutorial, we will walk through how to implement a dark mode switch using Tailwind and Next.js 13.
+Adding Dark Mode to your Next.js application not only enhances user experience but also improves accessibility and visual appeal. In this guide, you'll learn step-by-step how to set up a Dark Mode toggle using Next.js 15.1, persist user preferences with <span className="text-blue-500">localStorage</span>, and leverage Tailwind CSS for seamless theme switching.
+
 
 ### Prerequisites
-
 Before we get started, make sure you have the following installed:
 
 -   Node.js
--   Next.js 13
+-   Next.js
 -   Tailwind CSS
--   npm install next-themes or yarn add next-themes
--   npm install @heroicons/react
+-   npm i lucide-react 
 
-### Set up Tailwind CSS
-
-First, let's set up Tailwind CSS in our project. Install Tailwind and its dependencies using the following command:
+### Set up Next.js
 
 ```bash
-    pnpm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+    npx create-next-app@latest
 ```
 
-Next, create a configuration file for Tailwind using the following command:
-
-```bash
-    npx tailwindcss init -p
-```
-
-This will create a tailwind.config.js file in your project root.
-
-In your postcss.config.js file, add the following configuration:
+### 1. **Generate <span className="text-blue-500">tailwind.config.js</span>**: Configure Tailwind CSS for dark mode support.
 
 ```jsx
+/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: [
-		"./pages/**/*.{js,ts,jsx,tsx}",
-		"./components/**/*.{js,ts,jsx,tsx}",
-		"./app/**/*.{js,ts,jsx,tsx}",
-	],
-	darkMode: "class",
-	theme: {},
-	plugins: [],
+  darkMode: 'class',
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
 ```
 
-### Using next-themes
-
-In the `Layout.tsx` file, wrap your component with the `Provider` from next-themes. Set the attribute prop to class to allow the library to apply the theme to the HTML element.
+### 2. **Generate <span className="text-blue-500">app/components/theme-provider.tsx</span>**: Create a provider to manage and persist theme state.
 
 ```jsx
-<html>
-	<head />
-	<body>
-		<Providers>
-			<main>{children}</main>
-		</Providers>
-	</body>
-</html>
-```
+'use client'
 
-### Create a Providers Component
+import { createContext, useContext, useEffect, useState } from 'react'
 
-```jsx
-"use client"
-import { ThemeProvider } from "next-themes"
+type Theme = 'dark' | 'light'
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
-	return (
-		<ThemeProvider enableSystem={true} attribute="class">
-			{children}
-		</ThemeProvider>
-	)
+type ThemeContextType = {
+  theme: Theme
+  toggleTheme: () => void
 }
 
-export default Providers
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>('light')
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme') as Theme | null
+    if (storedTheme) {
+      setTheme(storedTheme)
+      if (storedTheme === 'dark') {
+        document.documentElement.classList.add('dark')
+      }
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark')
+      document.documentElement.classList.add('dark')
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light'
+      localStorage.setItem('theme', newTheme)
+      if (newTheme === 'dark') {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+      return newTheme
+    })
+  }
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+export function useTheme() {
+  const context = useContext(ThemeContext)
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+  return context
+}
 ```
 
-### Create a Dark Mode Switch Component
-
-Now let's create a component to toggle between light mode and dark mode.
-
-Create a new component called DarkModeToggle.tsx in the components directory. Here's an example:
+### 3. **Generate <span className="text-blue-500">app/components/theme-toggle.tsx</span>**: Build a toggle button for switching between light and dark modes.
 
 ```jsx
-"use client"
-import { useState, useEffect } from "react"
-import { useTheme } from "next-themes"
-import { MoonIcon, SunIcon } from "@heroicons/react/24/solid"
+'use client'
 
-const DarkModeBtn = () => {
-	const [mounted, setMounted] = useState(false)
-	const { systemTheme, theme, setTheme } = useTheme()
+import { useTheme } from './theme-provider'
+import { Moon, Sun } from 'lucide-react'
 
-	useEffect(() => {
-		setMounted(true)
-	}, [])
+export function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme()
 
-	if (!mounted) {
-		return null
-	}
-
-	const currentTheme = theme === "system" ? systemTheme : theme
-
-	return (
-		<div>
-			{currentTheme === "dark" ? (
-				<SunIcon
-					className="h-6 w-6 cursor-pointer text-yellow-400"
-					onClick={() => setTheme("light")}
-				/>
-			) : (
-				<MoonIcon
-					className="h-6 w-6 cursor-pointer text-slate-700"
-					onClick={() => setTheme("dark")}
-				/>
-			)}
-		</div>
-	)
+  return (
+    <button
+      onClick={toggleTheme}
+      className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+      aria-label="Toggle theme"
+    >
+      {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+    </button>
+  )
 }
-export default DarkModeBtn
 ```
 
-This component is toggled when the user clicks on the button. The state is saved to localStorage so that the user's preference is remembered when they revisit the website.
+### 4. **Generate <span className="text-blue-500">app/layout.tsx</span>**: Set up a shared layout that integrates the theme provider.
 
-### Add the Dark Mode
+```jsx
+import { ThemeProvider } from './components/theme-provider'
+import './globals.css'
 
-`<DarkModeBtn />`
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+### 5. **Generate <span className="text-blue-500">app/page.tsx</span>**: Design your main page with support for dark mode styling.
+
+```jsx
+import { ThemeToggle } from './components/theme-toggle'
+
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-white dark:bg-gray-900 text-black dark:text-white">
+      <h1 className="text-4xl font-bold mb-4">Welcome to Dark Mode</h1>
+      <p className="mb-4">Click the button to toggle the theme</p>
+      <ThemeToggle />
+    </main>
+  )
+}
+```
+
+With these components in place, you'll have a fully functional Dark Mode toggle in your application!
