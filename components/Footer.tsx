@@ -42,6 +42,7 @@ const variants = {
 }
 
 const Footer = () => {
+	const currentYear = new Date().getFullYear()
 	return (
 		<section className="py-12 px-5 sm:px-10 big:max-w-screen-2xl mx-auto">
 			<div className="flex flex-col items-center">
@@ -63,7 +64,7 @@ const Footer = () => {
 					))}
 				</div>
 				<p className="text-sm">- Design and development by me.</p>
-				<p className="text-sm">@2024</p>
+				<p className="text-sm">@{currentYear}</p>
 			</div>
 		</section>
 	)
