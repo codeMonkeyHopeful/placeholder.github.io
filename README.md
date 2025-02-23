@@ -1,10 +1,10 @@
-# My portfolio 2024
+# My portfolio 2025
 
-This is my personal portfolio website built with Next.js 14, Tailwind CSS, next-mdx-remote, MDX Blog.
+This is my personal portfolio website built with Next.js 15, Tailwind CSS, next-mdx-remote, MDX Blog.
 
 ## Built with
 
--   **Next.js 14**
+-   **Next.js 15**
 -   **Tailwind CSS**
 -   **next-mdx-remote**
 -   **MDX Blog**
@@ -14,7 +14,7 @@ This is my personal portfolio website built with Next.js 14, Tailwind CSS, next-
 -   **Responsive Design (Mobile-first):** Your portfolio adapts gracefully to any screen size, ensuring optimal viewing on all devices.
 -   **Dark Mode Support:** Provide a visually comfortable experience with Tailwind CSS's built-in dark mode capabilities.
 -   **Blogging with MDX:** Share your insights and projects in a compelling way using MDX's blend of Markdown and React components.
--   **Fast, Server-side Rendering (Next.js 14):** Benefit from Next.js 14's performance enhancements for both SEO and user experience.
+-   **Fast, Server-side Rendering (Next.js 15):** Benefit from Next.js 14's performance enhancements for both SEO and user experience.
 
 ## Installation
 
