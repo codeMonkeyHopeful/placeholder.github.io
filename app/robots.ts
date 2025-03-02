@@ -5,7 +5,7 @@ export default function robots() {
           userAgent: '*',
         },
       ],
-      sitemap: 'https://vadimghedreutan.io/sitemap.xml',
-      host: 'https://vadimghedreutan.io',
+      sitemap: 'https://vadimghedreutan.net/sitemap.xml',
+      host: 'https://vadimghedreutan.net',
     };
   }

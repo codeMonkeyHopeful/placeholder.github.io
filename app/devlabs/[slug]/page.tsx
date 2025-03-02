@@ -30,8 +30,8 @@ export async function generateMetadata({
 		image,
 	} = post.metadata
 	let ogImage = image
-		? `https://vadimghedreutan.io/devlabs${image}`
-		: `https://vadimghedreutan.io/devlabs/og?title=${title}`
+		? `https://vadimghedreutan.net/devlabs${image}`
+		: `https://vadimghedreutan.net/devlabs/og?title=${title}`
 
 	return {
 		title,
@@ -41,7 +41,7 @@ export async function generateMetadata({
 			description,
 			type: "article",
 			publishedTime,
-			url: `https://vadimghedreutan.io/devlabs/${post.slug}`,
+			url: `https://vadimghedreutan.net/devlabs/${post.slug}`,
 			images: [
 				{
 					url: ogImage,
@@ -122,9 +122,9 @@ export default async function DevLabs({
 						dateModified: post.metadata.publishedAt,
 						description: post.metadata.summary,
 						image: post.metadata.image
-							? `https://vadimghedreutan.io${post.metadata.image}`
-							: `https://vadimghedreutan.io/og?title=${post.metadata.title}`,
-						url: `https://vadimghedreutan.io/devlabs/${post.slug}`,
+							? `https://vadimghedreutan.net${post.metadata.image}`
+							: `https://vadimghedreutan.net/og?title=${post.metadata.title}`,
+						url: `https://vadimghedreutan.net/devlabs/${post.slug}`,
 						author: {
 							"@type": "Person",
 							name: "Vadim Ghedreutan",

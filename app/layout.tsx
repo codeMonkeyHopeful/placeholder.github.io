@@ -29,11 +29,11 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: "Vadim Ghedreutan",
 		description: "Developer, System Administrator, and creator.",
-		url: "https://vadimghedreutan.io",
+		url: "https://vadimghedreutan.net",
 		siteName: "Vadim Ghedreutan",
 		images: [
 			{
-				url: "https://vadimghedreutan.io/og.jpg",
+				url: "https://vadimghedreutan.net/og.jpg",
 				width: 1920,
 				height: 1080,
 			},
