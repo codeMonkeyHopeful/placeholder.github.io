@@ -33,9 +33,9 @@
     "typescript": "5.9.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.22",
     "postcss": "^8.4.39",
-    "tailwindcss": "^4.1.12",
+    "tailwindcss": "^4.1.17",
     "ts-node": "^10.9.2"
   }
 }
